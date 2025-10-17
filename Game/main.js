@@ -1,6 +1,10 @@
 //Импортируем необходимые модули
 
-const readLineSync = recuire('rqadline-sync');
+const readLineSync = require('readline-sync');
+
+//Импортируем игровые модули
+const runGuessTheNumber = require('./guess-the-number/game');
+
 //Контроллер игрового цикла
 
 let keepPlaying = true;
@@ -18,4 +22,28 @@ while (keepPlaying) {
     const games = [
         'Guess the Number'
     ];
+
+    //отображаем доступные игры
+    const index = readLineSync.keyInSelect(games, 'Choose a game or exit:');
+    //в зависимости от выбора игрока запускаем соответствующую игру
+    switch (index) {
+        case 0:
+            runGuessTheNumber();
+            break;
+            //Дальше будет добавлятся новые игры
+            default:
+                console.log("Exiting the game. Goodbye!");
+                keepPlaying = false;
+                break;
+    }
+    //после завершения игры спрашиваем, хочет ли игрок снова сыграть
+    if (keepPlaying) {
+        if (!readLineSync.keyInYN('Do you want to another game?')) {
+            keepPlaying = false;
+            console.log("Goodbye!");
+
+        }
+    }
+
+
 }
